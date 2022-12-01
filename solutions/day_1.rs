@@ -1,8 +1,7 @@
 use std::fs;
 
 fn main() {
-    const FILE_PATH: &str = "C:/Users/User/Documents/GitHub/adventofcode_22/input_files/day_1/day1_1.txt";
-    println!("In file {}", FILE_PATH);
+    const FILE_PATH: &str = "../input_files/day_1/day1_1.txt";
 
     let content = fs::read_to_string(FILE_PATH).unwrap();
 
