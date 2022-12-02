@@ -4,22 +4,13 @@ fn main() {
     const FILE_PATH: &str = "../input_files/day_1/day1_1.txt";
 
     let content = fs::read_to_string(FILE_PATH).unwrap();
-
-    let calories = content.split("\n");
-    let mut elves: [i32; 3] = [0, 0, 0];
+    let mut elves = Vec::new();
 
     let mut elf_calories = 0;
-    for line in calories {
+    for line in content.split("\n") {
         let mut string_line :String = String::from(line);
         if string_line.trim().is_empty() {
-            elves.sort();
-
-            for i in 0..elves.len() {
-                if elves[i] < elf_calories {
-                    elves[i] = elf_calories;
-                    break;
-                }
-            }
+            elves.push(elf_calories);
 
             elf_calories = 0;
             continue;
@@ -30,6 +21,8 @@ fn main() {
     }
 
     elves.sort();
+    elves.reverse();
+
     println!("3 highest snack counts (total): {}", elves[0] + elves[1] + elves[2]);
 
 }
