@@ -1,7 +1,7 @@
 use std::fs;
 
 fn main() {
-    const FILE_PATH: &str = "../input_files/day_1/day1_1.txt";
+    const FILE_PATH: &str = "../input_files/day_1/day_1.txt";
 
     let content = fs::read_to_string(FILE_PATH).unwrap();
     let mut elves = Vec::new();
