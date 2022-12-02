@@ -7,8 +7,6 @@ fn main() {
 
     let mut your_score = 0;
     for line in content.split("\n") {
-        let mut moves = line.split(" ");
-
         let outcome = match String::from(line.replace("\r", "").replace(" ", "")).as_str() {
             "AX" => "AZ",
             "BX" => "BX",
