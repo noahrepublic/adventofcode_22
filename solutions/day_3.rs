@@ -1,14 +1,8 @@
 use std::collections::HashMap;
 use std::fs;
 
-fn main() {
-    const FILE_PATH: &str = "../input_files/day_3.txt";
-
-    let content = fs::read_to_string(FILE_PATH).unwrap();
-
+fn p1(content: &String) -> usize {
     let mut sum = 0;
-    let ascii_a = 'a' as u8;
-    println!("a: {}", ascii_a);
     let letter_scores = ('a'..='z')
         .chain('A'..='Z')
         .enumerate()
@@ -24,19 +18,61 @@ fn main() {
             }
 
             if second.contains(character) {
-                println!(
-                    "{}",
-                    letter_scores
-                        .get(&character.chars().next().unwrap())
-                        .unwrap()
-                );
                 let score = letter_scores
                     .get(&character.chars().next().unwrap())
                     .unwrap();
 
                 sum += score;
+                break;
+               
             }
         }
     }
-    println!("Sum: {}", sum);
+    return sum;
+}
+
+fn p2(content: &String) -> usize {
+    let mut sum = 0;
+    let _letter_scores = ('a'..='z')
+        .chain('A'..='Z')
+        .enumerate()
+        .map(|(idx, c)| (c, idx + 1))
+        .collect::<HashMap<char, usize>>();
+
+    let mut lines = content.split("\n");
+    for _i in 0..content.len()/3 {
+        let first_rucksack = lines.next();
+        if first_rucksack.is_none() {
+            break;
+        }
+        let first_rucksack = &first_rucksack.unwrap().replace("\r", "").replace(" ", "");
+        let second_rucksack = lines.next().unwrap().replace("\r", "").replace(" ", "");
+        let third_rucksack = lines.next().unwrap().replace("\r", "").replace(" ", "");
+
+        for character in first_rucksack.split("") {
+            if character == "" {
+                continue;
+            }
+
+            if second_rucksack.contains(character) && third_rucksack.contains(character) {
+                let score = _letter_scores
+                    .get(&character.chars().next().unwrap())
+                    .unwrap();
+
+                sum += score;
+                break;
+            }
+        }
+    }
+    return sum;
+}
+
+fn main() {
+    const FILE_PATH: &str = "../input_files/day_3.txt";
+
+    let content = fs::read_to_string(FILE_PATH).unwrap();
+
+    println!("Part 1: {}", p1(&content));
+
+    println!("Part 2: {}", p2(&content));
 }
